@@ -1,0 +1,17 @@
+.section {
+  min-height: 82vh;
+  height: 100%;
+}
+
+.container {
+  height: 100%;
+  max-width: 1280px !important;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 1365px) {
+  .container {
+    max-width: calc(100% - 60px) !important;
+    margin: 0 auto;
+  }
+}

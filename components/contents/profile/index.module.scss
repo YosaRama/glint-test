@@ -1,0 +1,25 @@
+.profileImgContainer {
+  text-align: center;
+  :global(.ant-image) {
+    height: 400px;
+    img {
+      object-fit: cover;
+      height: 400px;
+    }
+  }
+}
+
+.saveBtn {
+  text-align: right;
+}
+
+.workExperience {
+  margin-bottom: 50px;
+}
+
+.addExperienceBtn {
+  margin-top: 30px;
+  button {
+    width: 100%;
+  }
+}
