@@ -1,17 +1,21 @@
+// Query
 import {
-  GET_USER_BY_ID,
-  DELETE_USER,
-  UPDATE_USER,
-} from "database/queries/user";
+  DELETE_WORK_EXPERIENCE,
+  GET_WORK_EXPERIENCE_BY_ID,
+  UPDATE_WORK_EXPERIENCE,
+} from "database/queries/work-experience";
+
+// Helper
 import nextConnect from "next-connect";
+
 const apiHandler = nextConnect();
+const messageHead = "work experience";
 
-const messageHead = "User";
-
+// GET SINGLE HANDLER
 apiHandler.get(async (req, res) => {
-  const { id } = req.query;
+  const id = req.query.id;
   try {
-    const result = await GET_USER_BY_ID({ id });
+    const result = await GET_WORK_EXPERIENCE_BY_ID({ id });
     if (result) {
       res.status(200).json({
         success: true,
@@ -27,8 +31,7 @@ apiHandler.get(async (req, res) => {
   } catch (error) {
     res.status(200).json({
       success: false,
-      message: "Something Wrong !",
-      error: error.message,
+      message: error.message,
     });
   }
 });
@@ -36,9 +39,8 @@ apiHandler.get(async (req, res) => {
 // EDIT SINGLE HANDLER
 apiHandler.put(async (req, res) => {
   const id = req.query.id;
-  const data = req.body;
   try {
-    const result = await UPDATE_USER(id, data);
+    const result = await UPDATE_WORK_EXPERIENCE({ id });
     if (result) {
       res.status(200).json({
         success: true,
@@ -64,7 +66,7 @@ apiHandler.put(async (req, res) => {
 apiHandler.delete(async (req, res) => {
   const id = req.query.id;
   try {
-    const result = await DELETE_USER(id);
+    const result = await DELETE_WORK_EXPERIENCE({ id });
     if (result) {
       res.status(200).json({
         success: true,
