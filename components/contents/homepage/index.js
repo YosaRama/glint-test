@@ -2,6 +2,9 @@ import { Col, Row } from "antd";
 import MainCardPeopleList from "components/libs/card-people-list";
 import { useUsers } from "hooks/user";
 
+// Styles
+import s from "./index.module.scss";
+
 function MainContentsHomepage() {
   //? ============== User Hook ============= ?//
   const { data: userData } = useUsers({ queryString: "" });
@@ -9,8 +12,8 @@ function MainContentsHomepage() {
 
   return (
     <>
-      <Col>
-        <h1>Glints People</h1>
+      <Col className={s.title}>
+        <h1>Glints People Here</h1>
       </Col>
       <Row gutter={[16, 16]}>
         {userData &&
@@ -25,6 +28,7 @@ function MainContentsHomepage() {
                       ? item.profile_img
                       : "https://static.vecteezy.com/packs/media/components/global/search-explore-nav/img/vectors/term-bg-1-666de2d941529c25aa511dc18d727160.jpg"
                   }
+                  status={item.is_public}
                 />
               </Col>
             );

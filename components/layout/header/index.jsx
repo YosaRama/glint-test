@@ -26,18 +26,13 @@ function MainHeader() {
   };
   // * ====================================== * //
 
-  console.log(router.pathname);
-
   return (
     <>
       <Header>
-        <Row gutter={[16, 0]}>
+        <Row gutter={[16, 0]} justify="end">
           {authStatus === "authenticated" && (
             <>
-              <Col>
-                <Button onClick={handleSignOut}>Logout</Button>
-              </Col>
-              {router.pathname !== "/profile" && (
+              {router.pathname === "/" && (
                 <Col>
                   <Link href={"/profile"}>
                     <a>
@@ -46,7 +41,8 @@ function MainHeader() {
                   </Link>
                 </Col>
               )}
-              {router.pathname === "/profile" && (
+              {(router.pathname === "/profile" ||
+                router.pathname === "/[name]") && (
                 <Col>
                   <Link href={"/"}>
                     <a>
@@ -55,6 +51,9 @@ function MainHeader() {
                   </Link>
                 </Col>
               )}
+              <Col>
+                <Button onClick={handleSignOut}>Logout</Button>
+              </Col>
             </>
           )}
           {authStatus === "unauthenticated" && (

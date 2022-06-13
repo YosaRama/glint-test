@@ -17,7 +17,10 @@ export const GET_USER = () => {
 };
 
 export const GET_USER_BY_NAME = ({ name }) => {
-  return queryFrom.findUnique({ where: { name: name } });
+  return queryFrom.findUnique({
+    include: { WorkExperience: true },
+    where: { name: name },
+  });
 };
 
 export const GET_USER_BY_ID = ({ id }) => {

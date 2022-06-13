@@ -44,7 +44,22 @@ function ModalLogin(props) {
           <Form.Item
             name={"name"}
             label="Your Name"
-            rules={[{ required: true, message: "Please input your name" }]}
+            rules={[
+              () => ({
+                validator(_, value) {
+                  const nameValidation = new RegExp(/^[a-zA-z\s]*$/);
+                  if (nameValidation.test(value)) {
+                    return Promise.resolve();
+                  }
+
+                  return Promise.reject(
+                    new Error(
+                      "Please insert a good name just with letters and space"
+                    )
+                  );
+                },
+              }),
+            ]}
           >
             <Input placeholder="Input your name!" />
           </Form.Item>

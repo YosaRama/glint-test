@@ -14,22 +14,22 @@ export default NextAuth({
   providers: [
     CredentialsProvider({
       async authorize(credentials, req) {
-        const userCredentials = {
-          name: credentials.name,
-        };
-
         //? Check email or username
         const userFound = await GET_USER_BY_NAME({
-          name: userCredentials?.name,
+          name: credentials?.name,
         });
 
         //? Condition where user not found
         if (!userFound) {
-          const newUser = await CREATE_USER({ name: userCredentials?.name });
+          const newUser = await CREATE_USER({ name: credentials?.name });
           return { message: "Successfully create new user", user: newUser };
         }
 
-        return { message: "Successfully Login", success: true };
+        return {
+          message: "Successfully Login",
+          success: true,
+          user: userFound,
+        };
       },
     }),
   ],

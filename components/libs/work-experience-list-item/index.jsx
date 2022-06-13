@@ -48,9 +48,11 @@ function MainWorkExperienceListItem(props) {
           </p>
           <p className={s.description}>Job description : {description}</p>
         </Col>
-        <Col span={9} className={s.actionContainer}>
-          <DeleteOutlined className={s.deleteIcon} onClick={handleDelete} />
-        </Col>
+        {onDelete && (
+          <Col span={9} className={s.actionContainer}>
+            <DeleteOutlined className={s.deleteIcon} onClick={handleDelete} />
+          </Col>
+        )}
       </Row>
     </>
   );
