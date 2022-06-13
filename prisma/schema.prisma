@@ -6,7 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  // provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -15,21 +16,22 @@ model User {
   name           String           @unique
   profile_img    String?
   age            Int?
-  is_private     Boolean          @default(true)
+  is_public      Boolean          @default(false)
   WorkExperience WorkExperience[]
 
   @@map("user")
 }
 
 model WorkExperience {
-  id              Int      @id @default(autoincrement())
+  id              Int       @id @default(autoincrement())
   start_date      DateTime
-  end_date        DateTime
+  end_date        DateTime?
+  is_present      Boolean   @default(false)
   job_title       String
   company         String
   company_logo    String
   job_description String
-  user            User     @relation(references: [id], fields: [user_id], onUpdate: Cascade, onDelete: Cascade)
+  user            User      @relation(references: [id], fields: [user_id], onUpdate: Cascade, onDelete: Cascade)
   user_id         Int
 
   @@map("work_experience")

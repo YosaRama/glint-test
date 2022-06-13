@@ -2,9 +2,11 @@ import { useState } from "react";
 import propTypes from "prop-types";
 import { Button, Form, Input, Modal } from "antd";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 function ModalLogin(props) {
   const { visible, setVisible } = props;
+  const router = useRouter();
 
   //? ============== Handle Login ============= ?//
   const [loading, setLoading] = useState(false);
@@ -16,10 +18,10 @@ function ModalLogin(props) {
         const result = await signIn("credentials", {
           redirect: false,
           name: value.name,
-          callbackUrl: "/profile",
         });
         if (!result.error) {
           setVisible();
+          router.push("/profile");
         }
       } catch (error) {
         console.log(error);

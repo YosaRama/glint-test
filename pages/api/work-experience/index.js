@@ -1,5 +1,8 @@
 // Query
-import { CREATE_DATA, GET_DATA } from "app/database/query/_template";
+import {
+  CREATE_WORK_EXPERIENCE,
+  GET_WORK_EXPERIENCE_BY_ID,
+} from "database/queries/work-experience";
 
 // Helper
 import nextConnect from "next-connect";
@@ -10,7 +13,7 @@ const messageHead = "work experience";
 // GET HANDLER
 apiHandler.get(async (req, res) => {
   try {
-    const result = await GET_DATA();
+    const result = await GET_WORK_EXPERIENCE_BY_ID();
     if (result) {
       res.status(200).json({
         success: true,
@@ -34,8 +37,9 @@ apiHandler.get(async (req, res) => {
 
 // POST HANDLER
 apiHandler.post(async (req, res) => {
+  const data = req.body;
   try {
-    const result = await CREATE_DATA({});
+    const result = await CREATE_WORK_EXPERIENCE(data);
     if (result) {
       res.status(200).json({
         success: true,

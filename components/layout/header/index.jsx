@@ -1,12 +1,17 @@
-import { useState } from "react";
-import { Layout, Row, Col, Button } from "antd";
-import ModalLogin from "components/libs/modal-login";
-import { signOut, useSession } from "next-auth/react";
+// Libs
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { signOut, useSession } from "next-auth/react";
+import { Layout, Row, Col, Button } from "antd";
+
+// Components
+import ModalLogin from "components/libs/modal-login";
 const { Header } = Layout;
 
 function MainHeader() {
   const { status: authStatus } = useSession();
+  const router = useRouter();
 
   //? ============== Handle Login Modal ============= ?//
   const [showModal, setShowModal] = useState();
@@ -21,6 +26,8 @@ function MainHeader() {
   };
   // * ====================================== * //
 
+  console.log(router.pathname);
+
   return (
     <>
       <Header>
@@ -30,13 +37,24 @@ function MainHeader() {
               <Col>
                 <Button onClick={handleSignOut}>Logout</Button>
               </Col>
-              <Col>
-                <Link href={"/profile"}>
-                  <a>
-                    <Button>Go To Profile</Button>
-                  </a>
-                </Link>
-              </Col>
+              {router.pathname !== "/profile" && (
+                <Col>
+                  <Link href={"/profile"}>
+                    <a>
+                      <Button>Go To Profile</Button>
+                    </a>
+                  </Link>
+                </Col>
+              )}
+              {router.pathname === "/profile" && (
+                <Col>
+                  <Link href={"/"}>
+                    <a>
+                      <Button>Go To Homepage</Button>
+                    </a>
+                  </Link>
+                </Col>
+              )}
             </>
           )}
           {authStatus === "unauthenticated" && (

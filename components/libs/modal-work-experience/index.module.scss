@@ -4,3 +4,15 @@
     width: 100%;
   }
 }
+
+.imageContainer {
+  margin-bottom: 30px;
+  :global(.ant-image) {
+    height: auto;
+    width: 100%;
+    img {
+      height: 150px;
+      object-fit: contain;
+    }
+  }
+}

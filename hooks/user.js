@@ -91,6 +91,8 @@ export const useUser = ({ singleId }) => {
   const results = data?.data;
   const total = data?.data;
 
+  const onMutate = () => mutate();
+
   // Edit Hook Function
   const onEdit = useCallback(
     async (data) => {
@@ -124,6 +126,7 @@ export const useUser = ({ singleId }) => {
     total,
     loading: (!error && !data) || isValidating || loading,
     onEdit,
+    onMutate,
   };
 };
 

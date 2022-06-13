@@ -45,7 +45,7 @@ export const UPDATE_USER = (id, data) => {
     data: {
       name: data.name,
       age: data.age,
-      is_private: data.isPrivate,
+      is_public: data.isPublic,
       profile_img: data.profileImg,
     },
     where: { id: +id },

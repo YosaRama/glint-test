@@ -29,7 +29,7 @@ export default NextAuth({
           return { message: "Successfully create new user", user: newUser };
         }
 
-        return { message: "Successfully Login", user: userFound };
+        return { message: "Successfully Login", success: true };
       },
     }),
   ],
