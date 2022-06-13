@@ -9,3 +9,16 @@
     margin-top: 20px;
   }
 }
+
+.actionContainer {
+  // display: flex;
+  // justify-content: flex-end;
+  text-align: right;
+}
+
+.deleteIcon {
+  cursor: pointer;
+  &:hover {
+    color: #f5222d;
+  }
+}

@@ -125,7 +125,22 @@ function ModalWorkExperience(props) {
           </Form.Item>
           <Row gutter={[16, 0]}>
             <Col>
-              <Form.Item label="End Date" name={"end_date"}>
+              <Form.Item
+                label="End Date"
+                name={"end_date"}
+                rules={[
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (moment(value).isAfter(getFieldValue("start_date"))) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(
+                        new Error("Please make sure your end date!")
+                      );
+                    },
+                  }),
+                ]}
+              >
                 <DatePicker disabled={isPresent} />
               </Form.Item>
             </Col>

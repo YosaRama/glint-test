@@ -42,7 +42,9 @@ function MainContentsProfile(props) {
   // * ====================================== * //
 
   //? ============== Experience Details Hook ============= ?//
-  const { onAdd: addExperience } = useExperiences({ queryString: "" });
+  const { onAdd: addExperience, onDelete: deleteExperience } = useExperiences({
+    queryString: "",
+  });
   // * ====================================== * //
 
   //? ============== Handle Initial Profile Image ============= ?//
@@ -67,9 +69,16 @@ function MainContentsProfile(props) {
   // * ====================================== * //
 
   //? ============== Handle Add Experience ============= ?//
-  const handleAddExperience = (data) => {
-    addExperience(data);
-    mutateUser();
+  const handleAddExperience = async (data) => {
+    const result = await addExperience(data);
+    if (result) mutateUser();
+  };
+  // * ====================================== * //
+
+  //? ============== Handle Delete Experience ============= ?//
+  const handleDeleteExperience = async (id) => {
+    const result = await deleteExperience(id);
+    if (result) mutateUser();
   };
   // * ====================================== * //
 
@@ -121,11 +130,23 @@ function MainContentsProfile(props) {
                   name={"age"}
                   label="Age"
                   rules={[
-                    {
-                      type: "number",
-                      required: true,
-                      message: "Please input your age",
-                    },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        const numberValidator = new RegExp("^[0-9]*$");
+                        if (
+                          value &&
+                          value > 0 &&
+                          value < 110 &&
+                          numberValidator.test(value)
+                        ) {
+                          return Promise.resolve();
+                        }
+
+                        return Promise.reject(
+                          new Error("Please input correct age")
+                        );
+                      },
+                    }),
                   ]}
                 >
                   <InputNumber
@@ -164,6 +185,8 @@ function MainContentsProfile(props) {
                         endDate={item.end_date}
                         description={item.job_description}
                         present={item.is_present}
+                        id={+item.id}
+                        onDelete={handleDeleteExperience}
                       />
                     </Col>
                   );

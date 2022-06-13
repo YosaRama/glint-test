@@ -1,14 +1,38 @@
 // Libs
 import moment from "moment";
 import propTypes from "prop-types";
-import { Col, Image, Row } from "antd";
+import { Col, Image, Modal, Row } from "antd";
 
 // Styles
 import s from "./index.module.scss";
 
+// Icons
+import { DeleteOutlined } from "@ant-design/icons";
+
 function MainWorkExperienceListItem(props) {
-  const { title, company, logo, startDate, endDate, present, description } =
-    props;
+  const {
+    title,
+    company,
+    logo,
+    startDate,
+    endDate,
+    present,
+    description,
+    id,
+    onDelete,
+  } = props;
+
+  //? ============== Handle Delete ============= ?//
+  const handleDelete = () => {
+    Modal.confirm({
+      title: "Are you sure?",
+      content: "Delete this data mean you will lost it forever",
+      onOk: () => {
+        onDelete(id);
+      },
+    });
+  };
+  // * ====================================== * //
   return (
     <>
       <Row gutter={[16, 0]}>
@@ -24,6 +48,9 @@ function MainWorkExperienceListItem(props) {
           </p>
           <p className={s.description}>Job description : {description}</p>
         </Col>
+        <Col span={9} className={s.actionContainer}>
+          <DeleteOutlined className={s.deleteIcon} onClick={handleDelete} />
+        </Col>
       </Row>
     </>
   );
@@ -37,6 +64,8 @@ MainWorkExperienceListItem.propTypes = {
   endDate: propTypes.string,
   present: propTypes.bool,
   description: propTypes.string,
+  id: propTypes.number,
+  onDelete: propTypes.func,
 };
 
 export default MainWorkExperienceListItem;
