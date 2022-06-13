@@ -20,7 +20,6 @@ function MainLayout(props) {
         <MainContainer>
           <Content className={s.content}>{children}</Content>
         </MainContainer>
-        <Footer>Footer</Footer>
       </Layout>
 
       <ModalLogin />

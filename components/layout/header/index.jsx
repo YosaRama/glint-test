@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Layout, Row, Col, Button } from "antd";
 import ModalLogin from "components/libs/modal-login";
 import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 const { Header } = Layout;
 
 function MainHeader() {
@@ -23,11 +24,20 @@ function MainHeader() {
   return (
     <>
       <Header>
-        <Row>
+        <Row gutter={[16, 0]}>
           {authStatus === "authenticated" && (
-            <Col>
-              <Button onClick={handleSignOut}>Logout</Button>
-            </Col>
+            <>
+              <Col>
+                <Button onClick={handleSignOut}>Logout</Button>
+              </Col>
+              <Col>
+                <Link href={"/profile"}>
+                  <a>
+                    <Button>Go To Profile</Button>
+                  </a>
+                </Link>
+              </Col>
+            </>
           )}
           {authStatus === "unauthenticated" && (
             <Col>
