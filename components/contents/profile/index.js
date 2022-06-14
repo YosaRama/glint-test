@@ -12,6 +12,7 @@ import {
   Input,
   InputNumber,
   Row,
+  Spin,
   Switch,
 } from "antd";
 
@@ -38,6 +39,7 @@ function MainContentsProfile(props) {
     data,
     onEdit,
     onMutate: mutateUser,
+    loading,
   } = useUser({ singleId: user?.id || "" });
   // * ====================================== * //
 
@@ -166,34 +168,36 @@ function MainContentsProfile(props) {
                 </Form.Item>
               </Form>
               <Col className={s.saveBtn}>
-                <Button type="primary" onClick={handleEdit}>
+                <Button type="primary" onClick={handleEdit} loading={loading}>
                   Save Profile
                 </Button>
               </Col>
               <Divider type="horizontal" orientation="left">
                 WORK EXPERIENCE
               </Divider>
-              {data?.WorkExperience?.length != 0 &&
-                data?.WorkExperience.map((item, index) => {
-                  return (
-                    <Col className={s.workExperience} key={index}>
-                      <MainWorkExperienceListItem
-                        title={item.job_title}
-                        company={item.company}
-                        logo={item.company_logo}
-                        startDate={item.start_date}
-                        endDate={item.end_date}
-                        description={item.job_description}
-                        present={item.is_present}
-                        id={+item.id}
-                        onDelete={handleDeleteExperience}
-                      />
-                    </Col>
-                  );
-                })}
-              {data?.WorkExperience?.length == 0 && (
-                <Empty description="No Work Experience" />
-              )}
+              <Spin spinning={loading}>
+                {data?.WorkExperience?.length != 0 &&
+                  data?.WorkExperience.map((item, index) => {
+                    return (
+                      <Col className={s.workExperience} key={index}>
+                        <MainWorkExperienceListItem
+                          title={item.job_title}
+                          company={item.company}
+                          logo={item.company_logo}
+                          startDate={item.start_date}
+                          endDate={item.end_date}
+                          description={item.job_description}
+                          present={item.is_present}
+                          id={+item.id}
+                          onDelete={handleDeleteExperience}
+                        />
+                      </Col>
+                    );
+                  })}
+                {data?.WorkExperience?.length == 0 && (
+                  <Empty description="No Work Experience" />
+                )}
+              </Spin>
 
               <Col span={24} className={s.addExperienceBtn}>
                 <Button type="primary" onClick={handleExperienceModal}>
